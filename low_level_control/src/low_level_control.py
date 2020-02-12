@@ -62,7 +62,7 @@ class AT_LLC():
         self._pwm_msg = Int32MultiArray()
 
         # Create publisher
-        self.ros_pub_pwm = rospy.Publisher('/pwm_command', Int32MultiArray, queue_size=1)
+        self.ros_pub_pwm = rospy.Publisher('/command', Int32MultiArray, queue_size=1)
         rospy.loginfo('Publisher Initialized')
 
         # Create subscriber
