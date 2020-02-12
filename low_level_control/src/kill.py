@@ -25,6 +25,7 @@ while key != ord('q'):
 		for i in range(len(nodes)):
 		    nodes[i] = nodes[i].replace("\n","")
 		for node in nodes:
+		    print(node) 
 		    os.system("rosnode kill "+ node)
 	elif key == curses.KEY_HOME:
 		em_pub.publish(False)
