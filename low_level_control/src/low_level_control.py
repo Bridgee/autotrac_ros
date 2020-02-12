@@ -75,12 +75,15 @@ class AT_LLC():
 
         rospy.loginfo('Initialization Complete!!!')
 
+    # Twist Callback
     def cmd_to_act(self, message):
         print 'Callback...'
         self._last_time_cmd_rcv = time.time()
-
-        self.actuators['throttle'].get_value_out(message.linear.x) # twist to pwm value
-        self.actuators['steering'].get_value_out(message.angular.z) # twist to pwm value
+        
+        if message.linear.x != 0:
+            self.actuators['throttle'].get_value_out(message.linear.x) # twist to pwm value
+        if message.angular.z !=0:
+            self.actuators['steering'].get_value_out(message.angular.z) # twist to pwm value
 
         rospy.loginfo('Got a command v = %2.1f  s = %2.1f'%(message.linear.x, message.angular.z))
 
@@ -114,7 +117,7 @@ class AT_LLC():
         return(time.time() - self._last_time_cmd_rcv < self._timeout_s)
 
     def run(self):
-        rate = rospy.Rate(63)
+        rate = rospy.Rate(500)
         while not rospy.is_shutdown():
             if not self.is_controller_connected:
                 print 'lost control'
